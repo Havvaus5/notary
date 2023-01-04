@@ -27,12 +27,14 @@ contract RealEstateSaleAd {
         uint256  rayicBedeli;
         uint256  fiyat; //todo double 
         bool  borcuVarMi;
+        uint adIdLUTIndex;
     }
 
     mapping (uint => Advertisement) adIdMap;
     mapping (uint => uint) hisseIdAdIdMap;
     mapping (address => uint[]) ownerAdIdListMap;
     uint[] adIdLUT;
+    uint totalAds = 0;
 
     constructor(address realOwnRelAdd)  {
         //ownerContract=Owner(ownerContractAdd);
@@ -50,7 +52,7 @@ contract RealEstateSaleAd {
         require(borcuVarMi, "Gayrimenkulun vergi borcu olmaz");
 
         uint ilanId = block.timestamp;
-        Advertisement memory ad = Advertisement(hisseId, msg.sender, address(0), State.YAYINDA, rayicBedeli, satisFiyat, borcuVarMi);
+        Advertisement memory ad = Advertisement(hisseId, msg.sender, address(0), State.YAYINDA, rayicBedeli, satisFiyat, borcuVarMi, adIdLUT.length);
         adIdMap[ilanId] = ad;
         hisseIdAdIdMap[hisseId] = ilanId;
         adIdLUT.push(ilanId);
@@ -63,6 +65,7 @@ contract RealEstateSaleAd {
         require(adIdMap[ilanId].state == State.ALICI_ICIN_KILITLENDI, "The ad does not removed : state ALICI_ICIN_KILITLENDI");
         adIdMap[ilanId].state = State.YAYINDAN_KALDIRILDI;
         hisseIdAdIdMap[hisseId] = 0;
+        updateLUT(ilanId);
         uint [] memory msgSenderAds = ownerAdIdListMap[msg.sender];
         for(uint i=0; i< msgSenderAds.length; i++){
             if(msgSenderAds[i] == ilanId){
@@ -70,6 +73,17 @@ contract RealEstateSaleAd {
             }
         } 
         emit ilanYayindanKaldirildi(hisseId, msg.sender, ilanId);
+    }
+
+    function updateLUT(uint ilanId) public{
+        uint lastIlanId = adIdLUT[adIdLUT.length];
+        uint deletedIlanIdIndex = adIdMap[lastIlanId].adIdLUTIndex;
+        if(ilanId != lastIlanId){            
+            uint newIndexOfLastItem = adIdMap[ilanId].adIdLUTIndex;
+            adIdMap[lastIlanId].adIdLUTIndex = newIndexOfLastItem;
+            adIdLUT[newIndexOfLastItem] = lastIlanId;         
+        }
+        delete adIdLUT[deletedIlanIdIndex];
     }
 
     function aliciIcinKilitle(uint ilanId, address aliciAdd, uint fiyat) public {
@@ -93,5 +107,22 @@ contract RealEstateSaleAd {
     function getAdIdLUT() public view returns(uint [] memory){
         return adIdLUT;
     } 
+
+    function getAllAds() public view returns(Advertisement [] memory){
+        Advertisement [] memory ads;
+        for(uint i = 0; i< adIdLUT.length; i++){
+            ads[i] = adIdMap[adIdLUT[i]];
+        }
+        return ads;
+    }
+
+    function getUserAds(address ownAdd) public view returns(Advertisement [] memory){
+        Advertisement [] memory ads;
+        uint[] memory ownAdIds = ownerAdIdListMap[ownAdd];
+        for(uint i = 0; i< ownAdIds.length; i++){
+            ads[i] = adIdMap[ownAdIds[i]];
+        }
+        return ads;
+    }
 
 }

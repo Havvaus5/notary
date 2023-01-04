@@ -21,12 +21,11 @@ contract RealEstateOwnerRelation {
         bool registered;
         uint payda;
         uint toplamHisseMiktar;
-        uint [] hisseIdList;
+        uint [] hisseIdList;        
     }
  
-    mapping(address => mapping(uint => bool)) public ownerHisseListMap;
-    mapping(address => uint []) public ownerHisseIdList;
-
+    mapping(address => uint []) public ownerHisseIdMap;
+    
     mapping(uint => RealEstateHisse) public realEstateIdHisseMap;
     mapping(uint => Hisse) public hisseIdHisseMap;
 
@@ -36,8 +35,8 @@ contract RealEstateOwnerRelation {
     event OwnerShipChanged(uint hiseId, address oldOwner, address newOwner);
 
     
-    constructor(address realEstateContractAdd)  {
-        //ownerContract=Owner(ownerContractAdd);
+    constructor(address realEstateContractAdd, address ownerContractAdd)  {
+        ownerContract=Owner(ownerContractAdd);
         realEstateContract=RealEstate(realEstateContractAdd);
     }
 
@@ -59,12 +58,8 @@ contract RealEstateOwnerRelation {
                 hisseIdHisseMap[hisseId].pay += _hisse;
                 emit OwnerHissePayAdded(realEstateId, hisseId, ownAdd);
             }else{
-                uint newHisseId=block.timestamp;
+                uint newHisseId=hisseOlustur(_hisse, realEstateId, ownAdd);
                 realEstateHisse.hisseIdList.push(newHisseId);
-                Hisse memory newHisse = Hisse(_hisse,realEstateId, ownAdd, true);
-                hisseIdHisseMap[newHisseId] = newHisse;    
-                ownerHisseListMap[ownAdd][newHisseId] = true;
-                ownerHisseIdList[ownAdd].push(newHisseId);
                 emit NewHisseAddedToRealEstate(realEstateId, newHisseId, ownAdd);
             }
             realEstateHisse.toplamHisseMiktar += _hisse;
@@ -74,42 +69,63 @@ contract RealEstateOwnerRelation {
             realEstateHisse.payda = payda;
             realEstateHisse.toplamHisseMiktar= _hisse;
             realEstateHisse.registered =true;
-            uint newHisseId=block.timestamp;
+            uint newHisseId=hisseOlustur(_hisse, realEstateId, ownAdd);
             realEstateHisse.hisseIdList.push(newHisseId);
-            Hisse memory newHisse = Hisse(_hisse,realEstateId, ownAdd, true);
-            hisseIdHisseMap[newHisseId] = newHisse;            
-            ownerHisseListMap[ownAdd][newHisseId] = true;
-            ownerHisseIdList[ownAdd].push(newHisseId);
             emit NewHisseAndRealEstateAdded(realEstateId, newHisseId, ownAdd);
         }
         
     }
 
+    function hisseOlustur(uint _hisse, uint realEstateId, address ownAdd) private returns (uint) {
+        uint newHisseId=block.timestamp;
+        Hisse memory newHisse = Hisse(_hisse, realEstateId, ownAdd, true);
+        hisseIdHisseMap[newHisseId] = newHisse;            
+        ownerHisseIdMap[ownAdd].push(newHisseId);   
+        return newHisseId;
+    }
+
     function getOwnerHisseId(address ownAdd, uint[] memory hisseIdList) public view returns(uint) {
-        mapping(uint => bool) storage ownHisseIdList = ownerHisseListMap[ownAdd];
         for(uint i = 0; i< hisseIdList.length; i++){
-            if(ownHisseIdList[hisseIdList[i]]){
-                return hisseIdList[i];
+            uint hisseId = hisseIdList[i];
+            if(hisseIdHisseMap[hisseId].ownerAdd == ownAdd){
+                return hisseId;
             }
         }
         return 0;
     }
 
     function changeOwnerShip(uint hisseId, address newOwner) public {
-        //sadece owner
-        require(hisseIdHisseMap[hisseId].registered, "Hisse bulunamadi");
+        require(hisseSatisaCikabilirMi(hisseId, msg.sender), "Hisse bulunamadi");
 
         hisseIdHisseMap[hisseId].ownerAdd = newOwner;
         
-        ownerHisseListMap[msg.sender][hisseId] = false;
-        ownerHisseListMap[newOwner][hisseId] = true;
-        ownerHisseIdList[newOwner].push(hiseId);
+        uint[] memory hisseIdList = ownerHisseIdMap[msg.sender];
+        for(uint i = 0; i<hisseIdList.length; i++){
+            if(hisseIdList[i] == hisseId){
+                delete hisseIdList[i];
+            } 
+        }
+        ownerHisseIdMap[newOwner].push(hisseId);
+        
         emit OwnerShipChanged(hisseId, msg.sender, newOwner);
     }
 
     function hisseSatisaCikabilirMi(uint hisseId, address ownAdd) public view returns(bool){
         Hisse memory hisse  = hisseIdHisseMap[hisseId];
         return hisse.registered && hisse.ownerAdd == ownAdd;
+    }
+
+    function getOwnerHisseIds(address ownAdd) public view returns(uint[] memory){
+        return ownerHisseIdMap[ownAdd];
+    }
+
+    function getHisseInfos(address ownAdd) public view returns (Hisse[] memory){
+           uint [] memory hisseIds = ownerHisseIdMap[ownAdd];
+           Hisse [] memory result = new Hisse[](hisseIds.length);
+           for(uint i = 0; i< hisseIds.length; i++){
+               result[i] = hisseIdHisseMap[hisseIds[i]];
+           }
+           return result;            
     }
 
 }

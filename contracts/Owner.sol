@@ -7,22 +7,17 @@ contract Owner {
       address  ownerAdd;
       string tcknorVkn;
       string fullName;
-      bool registered;
-      uint hisseSayisi;
+      bool registered;      
     }
     
     mapping(address => OwnerInfo) ownerMap;
 
     function addOwner(string memory _tcknOrVkn, string memory _fullName) public {
-         ownerMap[msg.sender] = OwnerInfo(msg.sender, _tcknOrVkn, _fullName, true, 0);
+         ownerMap[msg.sender] = OwnerInfo(msg.sender, _tcknOrVkn, _fullName, true);
     }
 
     function isOwnerRegistered(address ownAdd) public view returns(bool){
         return ownerMap[ownAdd].registered;
-    }
-
-    function getHisseSayisi(address ownAdd) public view returns(uint){
-        return ownerMap[ownAdd].hisseSayisi;
     }
   
 }
