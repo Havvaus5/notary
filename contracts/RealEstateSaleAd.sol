@@ -2,11 +2,11 @@
 pragma solidity ^0.8.0;
 
 import "./Owner.sol";
-import "./RealEstate.sol";
+import "./RealEstateOwnerRelation.sol";
 
 contract RealEstateSaleAd {
 
-    RealEstate realEstateContract;
+    RealEstateOwnerRelation realEstateOwnerRelation;
 
     enum State {
         YAYINDA,
@@ -34,9 +34,9 @@ contract RealEstateSaleAd {
     mapping (address => uint[]) ownerAdIdListMap;
     uint[] adIdLUT;
 
-    constructor(address realEstateContractAdd)  {
+    constructor(address realOwnRelAdd)  {
         //ownerContract=Owner(ownerContractAdd);
-        realEstateContract=RealEstate(realEstateContractAdd);
+        realEstateOwnerRelation=RealEstateOwnerRelation(realOwnRelAdd);
     }
 
     function isHisseYayindaMi(uint hisseId) public view returns(uint){
@@ -44,7 +44,7 @@ contract RealEstateSaleAd {
     }
 
     function ilanOlustur(uint hisseId, uint256 rayicBedeli, uint256 satisFiyat, bool borcuVarMi) public {
-        require(realEstateContract.hisseSatisaCikabilirMi(hisseId), "Hisse sistemde yok");
+        require(realEstateOwnerRelation.hisseSatisaCikabilirMi(hisseId, msg.sender), "Hisse sistemde yok");
         require(hisseIdAdIdMap[hisseId] != 0, "advertisement for real estate already exist in the system");
         require(rayicBedeli <= satisFiyat, "Satis fiyat rayic bedelden dusuk olamaz");
         require(borcuVarMi, "Gayrimenkulun vergi borcu olmaz");
@@ -90,5 +90,8 @@ contract RealEstateSaleAd {
         emit fiyatDegistir(ilanId, newfiyat, msg.sender);
     }
 
+    function getAdIdLUT() public view returns(uint [] memory){
+        return adIdLUT;
+    } 
 
 }

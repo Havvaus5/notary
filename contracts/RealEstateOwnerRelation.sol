@@ -25,6 +25,7 @@ contract RealEstateOwnerRelation {
     }
  
     mapping(address => mapping(uint => bool)) public ownerHisseListMap;
+    mapping(address => uint []) public ownerHisseIdList;
 
     mapping(uint => RealEstateHisse) public realEstateIdHisseMap;
     mapping(uint => Hisse) public hisseIdHisseMap;
@@ -63,6 +64,7 @@ contract RealEstateOwnerRelation {
                 Hisse memory newHisse = Hisse(_hisse,realEstateId, ownAdd, true);
                 hisseIdHisseMap[newHisseId] = newHisse;    
                 ownerHisseListMap[ownAdd][newHisseId] = true;
+                ownerHisseIdList[ownAdd].push(newHisseId);
                 emit NewHisseAddedToRealEstate(realEstateId, newHisseId, ownAdd);
             }
             realEstateHisse.toplamHisseMiktar += _hisse;
@@ -77,6 +79,7 @@ contract RealEstateOwnerRelation {
             Hisse memory newHisse = Hisse(_hisse,realEstateId, ownAdd, true);
             hisseIdHisseMap[newHisseId] = newHisse;            
             ownerHisseListMap[ownAdd][newHisseId] = true;
+            ownerHisseIdList[ownAdd].push(newHisseId);
             emit NewHisseAndRealEstateAdded(realEstateId, newHisseId, ownAdd);
         }
         
@@ -100,6 +103,7 @@ contract RealEstateOwnerRelation {
         
         ownerHisseListMap[msg.sender][hisseId] = false;
         ownerHisseListMap[newOwner][hisseId] = true;
+        ownerHisseIdList[newOwner].push(hiseId);
         emit OwnerShipChanged(hisseId, msg.sender, newOwner);
     }
 
