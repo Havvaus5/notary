@@ -95,14 +95,16 @@ contract RealEstateOwnerRelation {
     }
 
     function changeOwnerShip(uint hisseId, address newOwner) public {
-        require(hisseSatisaCikabilirMi(hisseId, msg.sender), "Hisse bulunamadi");
+        Hisse memory hisse  = hisseIdHisseMap[hisseId];
+        require(hisse.registered, "Hisse bulunamadi");
+        //islem yapan admin mi
 
         hisseIdHisseMap[hisseId].ownerAdd = newOwner;
         
         uint[] memory hisseIdList = ownerHisseIdMap[msg.sender];
         for(uint i = 0; i<hisseIdList.length; i++){
             if(hisseIdList[i] == hisseId){
-                delete hisseIdList[i];
+                ownerHisseIdMap[msg.sender][i] = 0;
             } 
         }
         ownerHisseIdMap[newOwner].push(hisseId);
