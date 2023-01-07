@@ -1,6 +1,8 @@
 let Owner = artifacts.require("./Owner.sol");
 let RealEstate = artifacts.require("./RealEstate.sol");
 let RealEstateOwnerRelation = artifacts.require("./RealEstateOwnerRelation.sol");
+let RealEstateSaleAd = artifacts.require("./RealEstateSaleAd.sol");
+let Proposition = artifacts.require("./Proposition.sol");
 
 module.exports = async function(deployer) {
     await deployer.deploy(Owner);
@@ -10,4 +12,9 @@ module.exports = async function(deployer) {
     const realEstateInstance = await RealEstate.deployed();
     await deployer.deploy(RealEstateOwnerRelation, ownInstance.address, realEstateInstance.address);
     
+    const realEstateOwnerRelInstance = await RealEstateOwnerRelation.deployed();
+    await deployer.deploy(RealEstateSaleAd, realEstateOwnerRelInstance.address);
+
+    const adInstance = await RealEstateSaleAd.deployed();
+    await deployer.deploy(Proposition, adInstance.address);
 };
