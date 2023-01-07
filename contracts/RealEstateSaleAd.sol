@@ -10,6 +10,7 @@ contract RealEstateSaleAd {
     Owner ownerContract;
 
     enum State {
+        YAYINDA_DEGIL,
         YAYINDA,
         ALICI_ICIN_KILITLENDI,
         YAYINDAN_KALDIRILDI,
@@ -88,7 +89,7 @@ contract RealEstateSaleAd {
 
     function aliciIcinKilitle(uint ilanId, address aliciAdd, uint fiyat) public {
         Advertisement memory ad =  adIdMap[ilanId];
-        require(ad.satici == msg.sender, "Bu islemi sadece satici yapabilir");
+        //require(ad.satici == msg.sender, "Bu islemi sadece satici yapabilir");
         require(ad.state == State.YAYINDA, "Sadece yayinda olan ilanlar icin bu islem yapilabilir");
         require(ad.rayicBedeli <= fiyat, "Satis fiyat rayic bedelden dusuk olamaz");
         adIdMap[ilanId].state = State.ALICI_ICIN_KILITLENDI;
@@ -140,6 +141,14 @@ contract RealEstateSaleAd {
             }
         }
         return ads;
+    }
+
+    function ilanaTeklifVerilebilirMi(uint ilanId) public view returns(bool){
+        return adIdMap[ilanId].state == State.YAYINDA;
+    }
+
+    function getIlanSatici(uint ilanId) public view returns(address){
+        return adIdMap[ilanId].satici;
     }
 
     function alicidanParaAlindi(uint ilanId) public {

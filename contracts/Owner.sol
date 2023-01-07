@@ -12,6 +12,7 @@ contract Owner {
     }
     
     enum Rol {
+        UNAUTHORIZED,
         ADMIN,
         USER
     }
