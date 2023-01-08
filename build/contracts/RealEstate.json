@@ -36,8 +36,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -56,8 +55,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -76,8 +74,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -96,8 +93,7 @@
         }
       ],
       "stateMutability": "pure",
-      "type": "function",
-      "constant": true
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"mahalle\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"payda\",\"type\":\"uint256\"}],\"name\":\"addRealEstate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"mahalle\",\"type\":\"string\"}],\"name\":\"getId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"realEstateId\",\"type\":\"uint256\"}],\"name\":\"getRealEstateInfo\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"realEstateId\",\"type\":\"uint256\"}],\"name\":\"getRealEstatePayda\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"realEstateId\",\"type\":\"uint256\"}],\"name\":\"isRealEstateRegisted\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/RealEstate.sol\":\"RealEstate\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/RealEstate.sol\":{\"keccak256\":\"0x3d7656faecccb9c9d2752dec595b2412be3379f2d9f7f735f2411cb7f4d26cd4\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://c71e29437cd1f50e7e2bddeeb4d8680c5ec69b8a3096a7b1e54e8ab8ed8d27b8\",\"dweb:/ipfs/QmX8RJSCG54Ht4wS22JStZ31Fn4EZrUjaHqCZxZXD93t8R\"]}},\"version\":1}",
@@ -5236,8 +5232,7 @@
     }
   },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-01-07T15:25:53.678Z",
-  "networkType": "ethereum",
+  "updatedAt": "2023-01-08T10:32:05.415Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

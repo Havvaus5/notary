@@ -54,8 +54,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -74,8 +73,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_tcknOrVkn\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_fullName\",\"type\":\"string\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_tcknOrVkn\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_fullName\",\"type\":\"string\"}],\"name\":\"addOwner\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"add\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"ownAdd\",\"type\":\"address\"}],\"name\":\"isOwnerRegistered\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Owner.sol\":\"Owner\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Owner.sol\":{\"keccak256\":\"0xdb42a9f1ce99de24947f89633422376efa171159f744eab57fd286dcfac593bd\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://53c9ba90235ac51255c6e5cddf5b525d8492a5ec004f1b8adb7e84c12ddf5d45\",\"dweb:/ipfs/QmQbjmcGuuyn4XUtdBBPULyXQC8cBSL4Ppc52bhCV5daGS\"]}},\"version\":1}",
@@ -4162,8 +4160,7 @@
     }
   },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-01-07T15:25:53.671Z",
-  "networkType": "ethereum",
+  "updatedAt": "2023-01-08T10:32:05.387Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

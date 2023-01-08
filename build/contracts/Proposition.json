@@ -112,8 +112,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -203,8 +202,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"realEstateSaleAdContractAdd\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"teklifId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"ilanId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"saticiAdd\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"aliciAdd\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fiyat\",\"type\":\"uint256\"}],\"name\":\"teklifGonderildi\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"teklifId\",\"type\":\"uint256\"}],\"name\":\"teklifKabulEdildi\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"teklifId\",\"type\":\"uint256\"}],\"name\":\"teklifReddedildi\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"aliciAdd\",\"type\":\"address\"}],\"name\":\"getGonderilenTeklifler\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"alici\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"satici\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"fiyat\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ilanId\",\"type\":\"uint256\"},{\"internalType\":\"enum Proposition.State\",\"name\":\"state\",\"type\":\"uint8\"}],\"internalType\":\"struct Proposition.PropositionData[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"propIdDataMap\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"alici\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"satici\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"fiyat\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ilanId\",\"type\":\"uint256\"},{\"internalType\":\"enum Proposition.State\",\"name\":\"state\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"ilanId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fiyat\",\"type\":\"uint256\"}],\"name\":\"teklifGonder\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"propId\",\"type\":\"uint256\"}],\"name\":\"teklifKabulEt\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"propId\",\"type\":\"uint256\"}],\"name\":\"teklifReddet\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Proposition.sol\":\"Proposition\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Owner.sol\":{\"keccak256\":\"0xdb42a9f1ce99de24947f89633422376efa171159f744eab57fd286dcfac593bd\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://53c9ba90235ac51255c6e5cddf5b525d8492a5ec004f1b8adb7e84c12ddf5d45\",\"dweb:/ipfs/QmQbjmcGuuyn4XUtdBBPULyXQC8cBSL4Ppc52bhCV5daGS\"]},\"project:/contracts/Proposition.sol\":{\"keccak256\":\"0xac5f1f66625a6881122a30d1c21d6af2fe8b2fa6d96c8769cf04f1e203b8750d\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://48c2df0b87b96243b11ecb9b19349bb93594802a943986e213e67af2aa4111af\",\"dweb:/ipfs/QmUximyoRfJdAJhgCJ1Bah47svR8MWG32cAEamYmEJpqzg\"]},\"project:/contracts/RealEstate.sol\":{\"keccak256\":\"0x3d7656faecccb9c9d2752dec595b2412be3379f2d9f7f735f2411cb7f4d26cd4\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://c71e29437cd1f50e7e2bddeeb4d8680c5ec69b8a3096a7b1e54e8ab8ed8d27b8\",\"dweb:/ipfs/QmX8RJSCG54Ht4wS22JStZ31Fn4EZrUjaHqCZxZXD93t8R\"]},\"project:/contracts/RealEstateOwnerRelation.sol\":{\"keccak256\":\"0x9aa8764130cb05ab3a22f8678fa499cfbae8f9b6813b8583ccdeaea459703dfd\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://742499e84919ce713b092b2a37aa0f7059273ecfd76ca3c90b7c53c5e8811a93\",\"dweb:/ipfs/Qmcp2b6vE86KitRwW7hrar2MHH5kxBZVwC6RGhtpQGqEf1\"]},\"project:/contracts/RealEstateSaleAd.sol\":{\"keccak256\":\"0x4549753c0376c142d20188d15de4532e2a89d8313ed880c8d4e99576a8c78c29\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://fc4035ea515b33a058321464d3cc4ce284c8d81ad5c7155690989b40f3eb4133\",\"dweb:/ipfs/QmPDwqwxzuGfJhu5r17m9N2GXS2v4skB1j3kegdj9WRY9k\"]}},\"version\":1}",
@@ -13110,8 +13108,7 @@
     }
   },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-01-07T15:25:53.718Z",
-  "networkType": "ethereum",
+  "updatedAt": "2023-01-08T10:32:05.400Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

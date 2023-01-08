@@ -18,8 +18,7 @@
         }
       ],
       "stateMutability": "pure",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -38,8 +37,7 @@
         }
       ],
       "stateMutability": "pure",
-      "type": "function",
-      "constant": true
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"sumInEth\",\"type\":\"uint256\"}],\"name\":\"etherToWei\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"timeInMin\",\"type\":\"uint256\"}],\"name\":\"minutesToSeconds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Utils.sol\":\"Utils\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Utils.sol\":{\"keccak256\":\"0x6380d695546e6d7ed0242712ec9674cceffd6d6414c8416be5b26cf7f561ba24\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://aa457f972dcc89ff410c80fe67faab2c4e62224e39d1dabeb00083beb8174adb\",\"dweb:/ipfs/QmRs3CruZEbdp1zmXnJoaGVo6wrD7JhNEEnK6RwAQaRqDq\"]}},\"version\":1}",
@@ -1419,8 +1417,7 @@
     }
   },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-01-07T15:25:44.913Z",
-  "networkType": "ethereum",
+  "updatedAt": "2023-01-08T10:32:05.477Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

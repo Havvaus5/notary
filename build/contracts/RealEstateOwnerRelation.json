@@ -149,8 +149,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -174,8 +173,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -204,8 +202,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -265,8 +262,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -308,8 +304,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -328,8 +323,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -370,8 +364,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"realEstateContractAdd\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"ownerContractAdd\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"realEstateId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"hisseId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"NewHisseAddedToRealEstate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"realEstateId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"hisseId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"NewHisseAndRealEstateAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"realEstateId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"hisseId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnerHissePayAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"hiseId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldOwner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnerShipChanged\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"ownAdd\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"realEstateId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_hisse\",\"type\":\"uint256\"}],\"name\":\"addOwnerShip\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"hisseId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"changeOwnerShip\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"ownAdd\",\"type\":\"address\"}],\"name\":\"getHisseInfos\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"pay\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"realEstateId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"ownerAdd\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"registered\",\"type\":\"bool\"}],\"internalType\":\"struct RealEstateOwnerRelation.Hisse[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"ownAdd\",\"type\":\"address\"},{\"internalType\":\"uint256[]\",\"name\":\"hisseIdList\",\"type\":\"uint256[]\"}],\"name\":\"getOwnerHisseId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"ownAdd\",\"type\":\"address\"}],\"name\":\"getOwnerHisseIds\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"hisseIdHisseMap\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"pay\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"realEstateId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"ownerAdd\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"registered\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"hisseId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"ownAdd\",\"type\":\"address\"}],\"name\":\"hisseSatisaCikabilirMi\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"ownerHisseIdMap\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"realEstateIdHisseMap\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"registered\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"payda\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"toplamHisseMiktar\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"realEstateId\",\"type\":\"uint256\"}],\"name\":\"testOwnerShip\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/RealEstateOwnerRelation.sol\":\"RealEstateOwnerRelation\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Owner.sol\":{\"keccak256\":\"0xdb42a9f1ce99de24947f89633422376efa171159f744eab57fd286dcfac593bd\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://53c9ba90235ac51255c6e5cddf5b525d8492a5ec004f1b8adb7e84c12ddf5d45\",\"dweb:/ipfs/QmQbjmcGuuyn4XUtdBBPULyXQC8cBSL4Ppc52bhCV5daGS\"]},\"project:/contracts/RealEstate.sol\":{\"keccak256\":\"0x3d7656faecccb9c9d2752dec595b2412be3379f2d9f7f735f2411cb7f4d26cd4\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://c71e29437cd1f50e7e2bddeeb4d8680c5ec69b8a3096a7b1e54e8ab8ed8d27b8\",\"dweb:/ipfs/QmX8RJSCG54Ht4wS22JStZ31Fn4EZrUjaHqCZxZXD93t8R\"]},\"project:/contracts/RealEstateOwnerRelation.sol\":{\"keccak256\":\"0x9aa8764130cb05ab3a22f8678fa499cfbae8f9b6813b8583ccdeaea459703dfd\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://742499e84919ce713b092b2a37aa0f7059273ecfd76ca3c90b7c53c5e8811a93\",\"dweb:/ipfs/Qmcp2b6vE86KitRwW7hrar2MHH5kxBZVwC6RGhtpQGqEf1\"]}},\"version\":1}",
@@ -16888,8 +16881,7 @@
     }
   },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-01-07T15:25:53.691Z",
-  "networkType": "ethereum",
+  "updatedAt": "2023-01-08T10:32:05.425Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
