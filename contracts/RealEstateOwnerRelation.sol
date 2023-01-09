@@ -3,27 +3,12 @@ pragma solidity ^0.8.0;
 
 import "./Owner.sol";
 import "./RealEstate.sol";
+import "./NotaryContractBase.sol";
 
-contract RealEstateOwnerRelation {
+contract RealEstateOwnerRelation is NotaryContractBase{
     Owner ownerContract;
     RealEstate realEstateContract;
 
-    struct Hisse {
-        uint pay;  
-       //string edinmeSebebi; //TODO enum
-        //uint edinmeZamani;
-        uint realEstateId;
-        address ownerAdd;
-        bool registered;
-    }
-
-    struct RealEstateHisse{
-        bool registered;
-        uint payda;
-        uint toplamHisseMiktar;
-        uint [] hisseIdList;        
-    }
- 
     mapping(address => uint []) public ownerHisseIdMap;
     
     mapping(uint => RealEstateHisse) public realEstateIdHisseMap;
@@ -33,7 +18,6 @@ contract RealEstateOwnerRelation {
     event OwnerHissePayAdded(uint realEstateId, uint hisseId, address owner);
     event NewHisseAddedToRealEstate(uint realEstateId, uint hisseId, address owner);
     event OwnerShipChanged(uint hiseId, address oldOwner, address newOwner);
-
     
     constructor(address realEstateContractAdd, address ownerContractAdd)  {
         ownerContract=Owner(ownerContractAdd);
@@ -117,8 +101,16 @@ contract RealEstateOwnerRelation {
         return hisse.registered && hisse.ownerAdd == ownAdd;
     }
 
-    function getOwnerHisseIds(address ownAdd) public view returns(uint[] memory){
-        return ownerHisseIdMap[ownAdd];
+    function getOwnerHisseId(address ownAdd, uint index) public view returns(uint){
+        return ownerHisseIdMap[ownAdd][index];
+    }
+
+    function getOwnerHisseLength(address ownAdd) public view returns(uint){
+        return ownerHisseIdMap[ownAdd].length;
+    }
+
+    function getHisse(uint hisseId) public view returns(Hisse memory){
+        return hisseIdHisseMap[hisseId];
     }
 
     function getHisseInfos(address ownAdd) public view returns (Hisse[] memory){

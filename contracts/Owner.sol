@@ -1,23 +1,11 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
-contract Owner {
+import "./NotaryContractBase.sol";
 
-    struct OwnerInfo {
-      address  ownerAdd;
-      string tcknorVkn;
-      string fullName;
-      bool registered;      
-      Rol rol;
-    }
-    
-    enum Rol {
-        UNAUTHORIZED,
-        ADMIN,
-        USER
-    }
+contract Owner is NotaryContractBase {
 
-    mapping(address => OwnerInfo) ownerMap;
+    mapping(address => OwnerInfo) public ownerMap;
 
     function addOwner(string memory _tcknOrVkn, string memory _fullName) public {
          ownerMap[msg.sender] = OwnerInfo(msg.sender, _tcknOrVkn, _fullName, true, Rol.USER);

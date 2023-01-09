@@ -3,20 +3,12 @@ pragma solidity ^0.8.0;
 
 import "./Owner.sol";
 import "./RealEstateOwnerRelation.sol";
+import "./NotaryContractBase.sol";
 
-contract RealEstateSaleAd {
+contract RealEstateSaleAd is NotaryContractBase{
 
     RealEstateOwnerRelation realEstateOwnerRelation;
     Owner ownerContract;
-
-    enum State {
-        YAYINDA_DEGIL,
-        YAYINDA,
-        ALICI_ICIN_KILITLENDI,
-        YAYINDAN_KALDIRILDI,
-        DEVIR_ISLEMI_TAMAMLANDI,
-        ALICI_ONAYI_ILE_KILIT_KALDIRMA
-    }
 
     event ilanOlusturuldu(uint hisseId, address saticiId, uint ilanId, uint fiyat);
     event ilanYayindanKaldirildi(address saticiId, uint ilanId);
@@ -25,21 +17,7 @@ contract RealEstateSaleAd {
     event kilitKaldirildiWithAliciOnayi(uint ilanId);
     event kilitKaldirildiWithSaticiOnayi(uint ilanId);
     event alicisistemHesabinaParaAktardi(address alici, uint ilanId, uint miktar);
-
-
-    struct Advertisement{
-        uint hisseId;        
-        address satici;
-        address alici;
-        State  state;
-        uint256  rayicBedeli;
-        uint256  fiyat; //todo double 
-        bool  borcuVarMi;
-        uint adIdLUTIndex;
-        bool aliciParaTransferi;
-        bool saticiParaTransferi;
-    }
-
+ 
     mapping (uint => Advertisement) public adIdMap;
     mapping (uint => uint) public hisseIdAdIdMap;
     mapping (address => uint[]) public ownerAdIdListMap;
@@ -141,7 +119,7 @@ contract RealEstateSaleAd {
             }
         }
         return ads;
-    }
+    }   
 
     function ilanaTeklifVerilebilirMi(uint ilanId) public view returns(bool){
         return adIdMap[ilanId].state == State.YAYINDA;
@@ -171,6 +149,19 @@ contract RealEstateSaleAd {
             adIdMap[ilanId].state = State.DEVIR_ISLEMI_TAMAMLANDI;
             updateLUT(ilanId);
         }
+    }
+
+    function getUserAssets(address ownAdd) public view returns(HisseAdData[] memory){
+        uint hisseIdsLength = realEstateOwnerRelation.getOwnerHisseLength(ownAdd);
+        HisseAdData [] memory result = new HisseAdData[](hisseIdsLength);
+        for(uint i = 0; i< hisseIdsLength; i++){
+            uint hisseId = realEstateOwnerRelation.getOwnerHisseId(ownAdd, i);
+            Hisse memory hisse = realEstateOwnerRelation.getHisse(hisseId);
+            uint ilanId = hisseIdAdIdMap[hisseId];
+            Advertisement memory advertisement = adIdMap[ilanId];
+            result[i] = HisseAdData(hisseId, hisse, ilanId, advertisement);
+        }
+        return result;
     }
 
 }

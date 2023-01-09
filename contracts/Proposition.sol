@@ -3,26 +3,12 @@ pragma solidity ^0.8.0;
 
 import "./Owner.sol";
 import "./RealEstateSaleAd.sol";
+import "./NotaryContractBase.sol";
 
-contract Proposition {
+contract Proposition is NotaryContractBase {
 
     RealEstateSaleAd realEstateSaleAdContract;
     Owner ownerContract;
-
-    enum State {
-        EMPTY,
-        KABUL,
-        RED,
-        BEKLEMEDE
-    }
-
-    struct PropositionData {
-        address alici;
-        address satici;
-        uint fiyat;
-        uint ilanId;
-        State state;
-    }
 
     mapping(uint => PropositionData) public propIdDataMap;
     mapping(address => uint []) gonderilenTeklifler;
@@ -44,7 +30,7 @@ contract Proposition {
         require(realEstateSaleAdContract.ilanaTeklifVerilebilirMi(ilanId), "Bu ilana teklif verilemez");
         uint propId = block.timestamp;        
         address alici = msg.sender;
-        propIdDataMap[propId] = PropositionData(alici, satici, fiyat, ilanId, State.BEKLEMEDE);
+        propIdDataMap[propId] = PropositionData(alici, satici, fiyat, ilanId, PropState.BEKLEMEDE);
         gonderilenTeklifler[alici].push(propId);
         alinanTeklifler[satici].push(propId);
         ilanIdTeklifIdListMap[ilanId].push(propId);
@@ -53,18 +39,18 @@ contract Proposition {
 
     function teklifReddet(uint propId) public {
         require(propIdDataMap[propId].satici == msg.sender, "Bu teklif sacede satici tarafindan reddedilir");
-        require(propIdDataMap[propId].state == State.BEKLEMEDE,  "Sadece beklemede olan teklifler reddedilir");
-        propIdDataMap[propId].state = State.RED;
+        require(propIdDataMap[propId].state == PropState.BEKLEMEDE,  "Sadece beklemede olan teklifler reddedilir");
+        propIdDataMap[propId].state = PropState.RED;
         emit teklifReddedildi(propId);        
         
     }
 
     function teklifKabulEt(uint propId) public {
         require(propIdDataMap[propId].satici == msg.sender, "Bu teklif sacede satici tarafindan kabul edilir");
-        require(propIdDataMap[propId].state == State.BEKLEMEDE, "Sadece beklemede olan teklifler kabul edilir");
+        require(propIdDataMap[propId].state == PropState.BEKLEMEDE, "Sadece beklemede olan teklifler kabul edilir");
         PropositionData memory prop = propIdDataMap[propId];
         realEstateSaleAdContract.aliciIcinKilitle(prop.ilanId, prop.alici, prop.fiyat);
-        propIdDataMap[propId].state = State.KABUL;
+        propIdDataMap[propId].state = PropState.KABUL;
         denyOtherProps(prop.ilanId, propId);
         emit teklifKabulEdildi(propId);
         
@@ -76,7 +62,7 @@ contract Proposition {
         for(uint i = 0; i< propSizeForAd; i++){
             uint propId = ilanIdTeklifIdListMap[ilanId][i];
             if( propId != acceptedPropId){
-                propIdDataMap[propId].state = State.RED;    
+                propIdDataMap[propId].state = PropState.RED;    
             }
         }
     }
