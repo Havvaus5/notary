@@ -24,8 +24,8 @@ contract RealEstate is NotaryContractBase {
         return realEstateMap[realEstateId].payda;
     }
 
-    function getRealEstateInfo(uint realEstateId) public view returns(string memory) {
-        return realEstateMap[realEstateId].mahalle;
+    function getRealEstateInfo(uint realEstateId) public view returns(RealEstateData memory) {
+        return realEstateMap[realEstateId];
     }
 
     function getId(string memory mahalle) public pure returns(uint){

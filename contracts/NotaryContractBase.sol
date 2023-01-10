@@ -24,6 +24,7 @@ contract NotaryContractBase {
     }
 
     struct PropositionData {
+        uint propId;
         address alici;
         address satici;
         uint fiyat;
@@ -87,6 +88,8 @@ contract NotaryContractBase {
         Hisse hisse;
         uint ilanId;
         Advertisement ad;
+        RealEstateData realEstateData;
     }
+    
 
 }

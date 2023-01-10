@@ -30,7 +30,7 @@ contract Proposition is NotaryContractBase {
         require(realEstateSaleAdContract.ilanaTeklifVerilebilirMi(ilanId), "Bu ilana teklif verilemez");
         uint propId = block.timestamp;        
         address alici = msg.sender;
-        propIdDataMap[propId] = PropositionData(alici, satici, fiyat, ilanId, PropState.BEKLEMEDE);
+        propIdDataMap[propId] = PropositionData(propId, alici, satici, fiyat, ilanId, PropState.BEKLEMEDE);
         gonderilenTeklifler[alici].push(propId);
         alinanTeklifler[satici].push(propId);
         ilanIdTeklifIdListMap[ilanId].push(propId);
@@ -76,6 +76,15 @@ contract Proposition is NotaryContractBase {
         return props;
     }
 
+    function getIlanTeklifList(uint ilanId) public view returns (PropositionData [] memory){
+        uint teklifSayisi = ilanIdTeklifIdListMap[ilanId].length;
+        PropositionData [] memory props = new PropositionData[](teklifSayisi);
+        for(uint i = 0; i< teklifSayisi; i++){
+            uint propId = ilanIdTeklifIdListMap[ilanId][i];
+            props[i] = propIdDataMap[propId];
+        }
+        return props;
+    }
 
 
 }

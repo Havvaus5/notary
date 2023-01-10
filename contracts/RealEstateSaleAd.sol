@@ -4,11 +4,13 @@ pragma solidity ^0.8.0;
 import "./Owner.sol";
 import "./RealEstateOwnerRelation.sol";
 import "./NotaryContractBase.sol";
+import "./RealEstate.sol";
 
 contract RealEstateSaleAd is NotaryContractBase{
 
     RealEstateOwnerRelation realEstateOwnerRelation;
     Owner ownerContract;
+    RealEstate realEstate;
 
     event ilanOlusturuldu(uint hisseId, address saticiId, uint ilanId, uint fiyat);
     event ilanYayindanKaldirildi(address saticiId, uint ilanId);
@@ -24,9 +26,10 @@ contract RealEstateSaleAd is NotaryContractBase{
     mapping (uint => uint) public adIdLUT;
     uint adIdLUTLength = 0;
 
-    constructor(address realOwnRelAddress)  {
+    constructor(address realOwnRelAddress, address realEstateAddress)  {
         //ownerContract=Owner(ownerContractAdd);
         realEstateOwnerRelation=RealEstateOwnerRelation(realOwnRelAddress);
+        realEstate=RealEstate(realEstateAddress);
     }
 
     function ilanOlustur(uint hisseId, uint256 rayicBedeli, uint256 satisFiyat, bool borcuVarMi) public {
@@ -157,9 +160,10 @@ contract RealEstateSaleAd is NotaryContractBase{
         for(uint i = 0; i< hisseIdsLength; i++){
             uint hisseId = realEstateOwnerRelation.getOwnerHisseId(ownAdd, i);
             Hisse memory hisse = realEstateOwnerRelation.getHisse(hisseId);
+            RealEstateData memory realEstateData = realEstate.getRealEstateInfo(hisse.realEstateId);
             uint ilanId = hisseIdAdIdMap[hisseId];
             Advertisement memory advertisement = adIdMap[ilanId];
-            result[i] = HisseAdData(hisseId, hisse, ilanId, advertisement);
+            result[i] = HisseAdData(hisseId, hisse, ilanId, advertisement, realEstateData);
         }
         return result;
     }
