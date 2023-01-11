@@ -1,14 +1,12 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
-import "./Owner.sol";
 import "./RealEstateSaleAd.sol";
 import "./NotaryContractBase.sol";
 
 contract Proposition is NotaryContractBase {
 
     RealEstateSaleAd realEstateSaleAdContract;
-    Owner ownerContract;
 
     mapping(uint => PropositionData) public propIdDataMap;
     mapping(address => uint []) gonderilenTeklifler;
@@ -20,7 +18,6 @@ contract Proposition is NotaryContractBase {
     event teklifKabulEdildi(uint teklifId);
 
     constructor(address realEstateSaleAdContractAdd)  {
-        //ownerContract=Owner(ownerContractAdd);
         realEstateSaleAdContract=RealEstateSaleAd(realEstateSaleAdContractAdd);
     }
 

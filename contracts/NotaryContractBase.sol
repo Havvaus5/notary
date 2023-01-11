@@ -6,7 +6,6 @@ contract NotaryContractBase {
         address  ownerAdd;
         string tcknorVkn;
         string fullName;
-        bool registered;      
         Rol rol;
     }
 
@@ -80,7 +79,7 @@ contract NotaryContractBase {
         //string ada;
         //string parsel;
         uint payda;
-        bool registered;        
+        bool registered;
     }
 
     struct HisseAdData {
@@ -89,6 +88,11 @@ contract NotaryContractBase {
         uint ilanId;
         Advertisement ad;
         RealEstateData realEstateData;
+    }
+
+    struct AdDto {
+        uint ilanId;
+        Advertisement ad;
     }
     
 

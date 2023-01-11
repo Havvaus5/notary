@@ -6,11 +6,7 @@ import "./NotaryContractBase.sol";
 contract RealEstate is NotaryContractBase {
 
     mapping(uint => RealEstateData) realEstateMap; 
-    
-    function add() public {
-        addRealEstate("karapinar", 2);
-    }
-
+   
     function addRealEstate(string memory mahalle, uint payda) public{
         uint realEstateId=uint(keccak256(bytes(mahalle))); //TODO bilgilerin daha önceden olmadığını kontrol et
         realEstateMap[realEstateId] = RealEstateData(realEstateId, mahalle, payda, true);

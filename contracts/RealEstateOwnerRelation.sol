@@ -29,8 +29,7 @@ contract RealEstateOwnerRelation is NotaryContractBase{
     }
     
     function addOwnerShip(address ownAdd, uint realEstateId, uint _hisse) public {
-        //TODO sadece admin yapabilsin
-        //require(ownerContract.isOwnerRegistered(ownAdd), "Owner does not exist in system");
+        require(ownerContract.isAdmin(msg.sender), "Bu islemi sadece admin yapabilir");
         require(realEstateContract.isRealEstateRegisted(realEstateId), "Real estate does not exist in the system");   
          
         RealEstateHisse storage realEstateHisse = realEstateIdHisseMap[realEstateId];
@@ -81,7 +80,7 @@ contract RealEstateOwnerRelation is NotaryContractBase{
     function changeOwnerShip(uint hisseId, address newOwner) public {
         Hisse memory hisse  = hisseIdHisseMap[hisseId];
         require(hisse.registered, "Hisse bulunamadi");
-        //islem yapan admin mi
+        //require(ownerContract.isAdmin(msg.sender), "Bu islemi sadece admin yapabilir");
 
         hisseIdHisseMap[hisseId].ownerAdd = newOwner;
         
