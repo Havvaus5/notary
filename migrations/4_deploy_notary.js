@@ -13,7 +13,7 @@ module.exports = async function(deployer) {
     await deployer.deploy(RealEstateOwnerRelation, realEstateInstance.address, ownInstance.address);
     
     const realEstateOwnerRelInstance = await RealEstateOwnerRelation.deployed();
-    await deployer.deploy(RealEstateSaleAd, realEstateOwnerRelInstance.address, realEstateInstance.address);
+    await deployer.deploy(RealEstateSaleAd, ownInstance.address, realEstateOwnerRelInstance.address, realEstateInstance.address);
 
     const adInstance = await RealEstateSaleAd.deployed();
     await deployer.deploy(Proposition, adInstance.address);

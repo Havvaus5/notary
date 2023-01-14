@@ -163,13 +163,17 @@ contract RealEstateSaleAd is NotaryContractBase{
     function getUserAssets(address ownAdd) public view returns(HisseAdData[] memory){
         uint hisseIdsLength = realEstateOwnerRelation.getOwnerHisseLength(ownAdd);
         HisseAdData [] memory result = new HisseAdData[](hisseIdsLength);
+        uint resultCount = 0;
         for(uint i = 0; i< hisseIdsLength; i++){
             uint hisseId = realEstateOwnerRelation.getOwnerHisseId(ownAdd, i);
-            Hisse memory hisse = realEstateOwnerRelation.getHisse(hisseId);
-            RealEstateData memory realEstateData = realEstate.getRealEstateInfo(hisse.realEstateId);
-            uint ilanId = hisseIdAdIdMap[hisseId];
-            Advertisement memory advertisement = adIdMap[ilanId];
-            result[i] = HisseAdData(hisseId, hisse, ilanId, advertisement, realEstateData);
+           if(hisseId != 0 ){
+                Hisse memory hisse = realEstateOwnerRelation.getHisse(hisseId);
+                RealEstateData memory realEstateData = realEstate.getRealEstateInfo(hisse.realEstateId);
+                uint ilanId = hisseIdAdIdMap[hisseId];
+                Advertisement memory advertisement = adIdMap[ilanId];
+                result[resultCount++] = HisseAdData(hisseId, hisse, ilanId, advertisement, realEstateData);
+
+            }
         }
         return result;
     }
@@ -184,6 +188,13 @@ contract RealEstateSaleAd is NotaryContractBase{
             result[i] = HisseAdData(ad.hisseId, hisse, ilanId, ad, realEstateData);
         }
         return result;
+    }
+
+    function getHisseAdDataById(uint ilanId) public view returns (HisseAdData memory){
+            Advertisement memory ad = adIdMap[ilanId];
+            Hisse memory hisse = realEstateOwnerRelation.getHisse(ad.hisseId);
+            RealEstateData memory realEstateData = realEstate.getRealEstateInfo(hisse.realEstateId);
+            return HisseAdData(ad.hisseId, hisse, ilanId, ad, realEstateData);
     }
 
 }
