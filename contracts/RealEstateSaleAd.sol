@@ -172,7 +172,6 @@ contract RealEstateSaleAd is NotaryContractBase{
                 uint ilanId = hisseIdAdIdMap[hisseId];
                 Advertisement memory advertisement = adIdMap[ilanId];
                 result[resultCount++] = HisseAdData(hisseId, hisse, ilanId, advertisement, realEstateData);
-
             }
         }
         return result;
@@ -190,11 +189,16 @@ contract RealEstateSaleAd is NotaryContractBase{
         return result;
     }
 
-    function getHisseAdDataById(uint ilanId) public view returns (HisseAdData memory){
-            Advertisement memory ad = adIdMap[ilanId];
-            Hisse memory hisse = realEstateOwnerRelation.getHisse(ad.hisseId);
-            RealEstateData memory realEstateData = realEstate.getRealEstateInfo(hisse.realEstateId);
-            return HisseAdData(ad.hisseId, hisse, ilanId, ad, realEstateData);
+    function getHisseAdDataById(uint ilanId) public view returns(HisseAdData memory){
+        Advertisement memory ad = adIdMap[ilanId];
+        Hisse memory hisse = realEstateOwnerRelation.getHisse(ad.hisseId);
+        RealEstateData memory realEstateData = realEstate.getRealEstateInfo(hisse.realEstateId);
+        return HisseAdData(ad.hisseId, hisse, ilanId, ad, realEstateData);
+    }
+
+    function isAdYayinda(uint ilanId) public view returns(bool){
+        Advertisement memory ad = adIdMap[ilanId];
+        return ad.state == State.YAYINDA;
     }
 
 }

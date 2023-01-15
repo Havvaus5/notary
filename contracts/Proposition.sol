@@ -74,14 +74,16 @@ contract Proposition is NotaryContractBase {
     }
 
     function getIlanTeklifList(uint ilanId) public view returns (PropositionData [] memory){
-        uint teklifSayisi = ilanIdTeklifIdListMap[ilanId].length;
-        PropositionData [] memory props = new PropositionData[](teklifSayisi);
-        for(uint i = 0; i< teklifSayisi; i++){
-            uint propId = ilanIdTeklifIdListMap[ilanId][i];
-            props[i] = propIdDataMap[propId];
+        if(realEstateSaleAdContract.isAdYayinda(ilanId)){
+            uint teklifSayisi = ilanIdTeklifIdListMap[ilanId].length;
+            PropositionData [] memory props = new PropositionData[](teklifSayisi);
+            for(uint i = 0; i< teklifSayisi; i++){
+                uint propId = ilanIdTeklifIdListMap[ilanId][i];
+                props[i] = propIdDataMap[propId];
+            }
+            return props;
+        }else{
+            return new PropositionData[](0);        
         }
-        return props;
     }
-
-
 }

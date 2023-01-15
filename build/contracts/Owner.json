@@ -38,8 +38,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -94,8 +93,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_tcknOrVkn\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_fullName\",\"type\":\"string\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_tcknOrVkn\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_fullName\",\"type\":\"string\"}],\"name\":\"addOwner\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"add\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"ownerMap\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"ownerAdd\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"tcknorVkn\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"fullName\",\"type\":\"string\"},{\"internalType\":\"enum NotaryContractBase.Rol\",\"name\":\"rol\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Owner.sol\":\"Owner\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/NotaryContractBase.sol\":{\"keccak256\":\"0x5192ec03b73954016e3218013ac42f22a3b97a72be8a767ca762a2c65d5352c2\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://ae47097cce2b2bef0c20fa216ab69b0936dffd87093105e3bd6770058102fbcd\",\"dweb:/ipfs/QmQCBfAtNyAjPWRVLABPsihaq7He6tZsjKpjYzcdX4sJk1\"]},\"project:/contracts/Owner.sol\":{\"keccak256\":\"0xf1d7362393fc5591f61b4c6877cf3813ed18fea680b5cfc9c75e939d69963be2\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://1014ccab3fa51bb3c4837ef4aff1bd11ebd89957082a69df63f27be74e6f56e5\",\"dweb:/ipfs/QmTS6gP8tdREDWHdf7BVcRL6bQxKPsKky8HQf8xohed8wu\"]}},\"version\":1}",
@@ -5763,13 +5761,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x0dA50aE8628f4e8111fC84228599D56F25829C32",
-      "transactionHash": "0x99dd3ced73eb7ffcd2233022ec172285280b70964e0ceec0728250bb6f63c0f0"
+      "address": "0x84e3450DbB86F33521433114bf77b4272b307f2f",
+      "transactionHash": "0x6730bb160347676ae6e611b776f51893280ceff1bb0fa1cc6557a624df7d9f3f"
     }
   },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-01-14T14:20:47.046Z",
-  "networkType": "ethereum",
+  "updatedAt": "2023-01-15T11:50:50.402Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

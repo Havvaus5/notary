@@ -88,8 +88,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -102,8 +101,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -116,8 +114,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -130,8 +127,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -144,8 +140,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -158,8 +153,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -179,8 +173,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -193,8 +186,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -211,8 +203,7 @@
     },
     {
       "stateMutability": "payable",
-      "type": "receive",
-      "payable": true
+      "type": "receive"
     },
     {
       "inputs": [],
@@ -225,8 +216,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -267,8 +257,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"campaignName\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"targetAmountEth\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"durationInMin\",\"type\":\"uint256\"},{\"internalType\":\"address payable\",\"name\":\"beneficiaryAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalCollected\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"succeeded\",\"type\":\"bool\"}],\"name\":\"CampaignFinished\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"amounts\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"beforeDeadline\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"beneficiary\",\"outputs\":[{\"internalType\":\"address payable\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cancelCrowdfunding\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"collect\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"collected\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"finishCrowdfunding\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"fundingDeadline\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"state\",\"outputs\":[{\"internalType\":\"enum Crowdfunding.State\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"targetAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalCollected\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Crowdfunding.sol\":\"Crowdfunding\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Crowdfunding.sol\":{\"keccak256\":\"0xd08077c384a23baccd6492543872c153f14bdc6e5c6740da8bd478ba56921907\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://2019755d921a4f5f7f136a13face9aae9f03c1cc6147bab9870b40f3297ba3f6\",\"dweb:/ipfs/QmQFQkNwPUNdjPrNjfKD1ZJrk1wES1DPKrbKvRpPDFhcLm\"]},\"project:/contracts/Utils.sol\":{\"keccak256\":\"0x688417de2907fb88f2e9623af2673dd08c219bcda0602e34c35934a6c2aa8587\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://35c9285561f284149507e987d20067b608504c01911bbf16b23404914579af93\",\"dweb:/ipfs/QmU4FCtZFdB91usXx2NhsK2aV7C6gtcnxBMNUEAAW3r67j\"]},\"project:/node_modules/@openzeppelin/contracts/access/Ownable.sol\":{\"keccak256\":\"0xa94b34880e3c1b0b931662cb1c09e5dfa6662f31cba80e07c5ee71cd135c9673\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://40fb1b5102468f783961d0af743f91b9980cf66b50d1d12009f6bb1869cea4d2\",\"dweb:/ipfs/QmYqEbJML4jB1GHbzD4cUZDtJg5wVwNm3vDJq1GbyDus8y\"]},\"project:/node_modules/@openzeppelin/contracts/utils/Context.sol\":{\"keccak256\":\"0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://6df0ddf21ce9f58271bdfaa85cde98b200ef242a05a3f85c2bc10a8294800a92\",\"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3\"]}},\"version\":1}",
@@ -10164,16 +10153,16 @@
     "absolutePath": "project:/contracts/Crowdfunding.sol",
     "exportedSymbols": {
       "Context": [
-        2716
+        2794
       ],
       "Crowdfunding": [
         298
       ],
       "Ownable": [
-        2694
+        2772
       ],
       "Utils": [
-        2581
+        2659
       ]
     },
     "id": 299,
@@ -10198,7 +10187,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 299,
-        "sourceUnit": 2695,
+        "sourceUnit": 2773,
         "src": "67:68:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -10210,7 +10199,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 299,
-        "sourceUnit": 2582,
+        "sourceUnit": 2660,
         "src": "137:21:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -10223,7 +10212,7 @@
               "id": 4,
               "name": "Ownable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 2694,
+              "referencedDeclaration": 2772,
               "src": "187:7:0"
             },
             "id": 5,
@@ -10238,8 +10227,8 @@
         "id": 298,
         "linearizedBaseContracts": [
           298,
-          2694,
-          2716
+          2772,
+          2794
         ],
         "name": "Crowdfunding",
         "nameLocation": "171:12:0",
@@ -10252,7 +10241,7 @@
               "id": 6,
               "name": "Utils",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 2581,
+              "referencedDeclaration": 2659,
               "src": "210:5:0"
             },
             "nodeType": "UsingForDirective",
@@ -10891,7 +10880,7 @@
                         "lValueRequested": false,
                         "memberName": "etherToWei",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 2568,
+                        "referencedDeclaration": 2646,
                         "src": "1001:26:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_delegatecall_pure$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -11009,7 +10998,7 @@
                           "lValueRequested": false,
                           "memberName": "minutesToSeconds",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 2580,
+                          "referencedDeclaration": 2658,
                           "src": "1074:30:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_delegatecall_pure$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -11175,7 +11164,7 @@
                       "name": "transferOwnership",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2673,
+                      "referencedDeclaration": 2751,
                       "src": "1194:17:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$returns$__$",
@@ -12556,7 +12545,7 @@
                   "id": 185,
                   "name": "onlyOwner",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 2613,
+                  "referencedDeclaration": 2691,
                   "src": "2012:9:0"
                 },
                 "nodeType": "ModifierInvocation",
@@ -13796,15 +13785,14 @@
         }
       },
       "links": {
-        "Utils": "0x7BdE4B3A5170886ED149620580a8fbb613D78069"
+        "Utils": "0x620a503Bc588D98DA369041Ffba60e9023705C55"
       },
-      "address": "0x73515a99B48843765bAA6Ba6BA7849003DEf2efc",
-      "transactionHash": "0x14dfd53e8a7a12517ea1bd920116aee13203d1614f2c963239dec3bf900a0479"
+      "address": "0xC9522fa880A494c689e66b0AB3C48C05909B89B5",
+      "transactionHash": "0x8010a59db69d266e5868d6abe76c37abac6b888a806591977be6b1f60832d959"
     }
   },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-01-14T14:20:42.245Z",
-  "networkType": "ethereum",
+  "updatedAt": "2023-01-15T11:50:50.387Z",
   "devdoc": {
     "kind": "dev",
     "methods": {
