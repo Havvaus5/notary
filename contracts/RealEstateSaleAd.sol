@@ -15,17 +15,20 @@ contract RealEstateSaleAd is NotaryContractBase{
     event ilanOlusturuldu(uint hisseId, address saticiId, uint ilanId, uint fiyat);
     event ilanYayindanKaldirildi(address saticiId, uint ilanId);
     event aliciIcinKilitlendi(uint ilanId, address saticiId, address aliciId);    
-    event fiyatDegistir(uint ilanId, uint yeniSatisFiyat, address saticiId);
+    event fiyatDegistirildi(uint ilanId, uint yeniSatisFiyat, address saticiId);
     event kilitKaldirildiWithAliciOnayi(uint ilanId);
     event kilitKaldirildiWithSaticiOnayi(uint ilanId);
     event alicisistemHesabinaParaAktardi(address alici, uint ilanId, uint miktar);
- 
+    event saticiSistemHesabinaTapuHarciAktardi(address satici, uint ilanId, uint miktar);
+    event changedOwnerShip(uint hisseId, address alici, address satici, uint fiyat, uint zaman);
+
     mapping (uint => Advertisement) public adIdMap;
     mapping (uint => uint) public hisseIdAdIdMap;
     mapping (address => uint[]) public ownerAdIdListMap;
     mapping (uint => uint) public adIdLUT;
     uint adIdLUTLength = 0;
-
+    uint aliciIcinKitlenenIlanSayisi = 0;
+    
     constructor(address ownerContractAdd, address realOwnRelAddress, address realEstateAddress)  {
         ownerContract=Owner(ownerContractAdd);
         realEstateOwnerRelation=RealEstateOwnerRelation(realOwnRelAddress);
@@ -76,8 +79,7 @@ contract RealEstateSaleAd is NotaryContractBase{
         adIdMap[ilanId].state = State.ALICI_ICIN_KILITLENDI;
         adIdMap[ilanId].alici = aliciAdd;
         adIdMap[ilanId].fiyat = fiyat;
-
-        emit aliciIcinKilitlendi(ilanId, msg.sender, aliciAdd);    
+        aliciIcinKitlenenIlanSayisi++;
     }
 
     function changeSatisFiyat(uint ilanId, uint newfiyat) public {
@@ -86,7 +88,7 @@ contract RealEstateSaleAd is NotaryContractBase{
         require(ad.state == State.YAYINDA, "Sadece yayinda olan ilanlar icin bu islem yapilabilir");
         require(ad.rayicBedeli <= newfiyat, "Satis fiyat rayic bedelden dusuk olamaz");
         adIdMap[ilanId].fiyat = newfiyat;
-        emit fiyatDegistir(ilanId, newfiyat, msg.sender);
+        emit fiyatDegistirildi(ilanId, newfiyat, msg.sender);
     }
 
     function kilitKaldirWithAliciOnayi(uint ilanId) public {
@@ -100,6 +102,7 @@ contract RealEstateSaleAd is NotaryContractBase{
         require(msg.sender == adIdMap[ilanId].satici, "Bu islem sadece satici tarafindan yapilir");
         require(adIdMap[ilanId].state == State.ALICI_ONAYI_ILE_KILIT_KALDIRMA, "oncelikle alici kilit kaldirmali");
         adIdMap[ilanId].state = State.YAYINDA;
+        aliciIcinKitlenenIlanSayisi--;
         emit kilitKaldirildiWithSaticiOnayi(ilanId);
     }
 
@@ -120,6 +123,10 @@ contract RealEstateSaleAd is NotaryContractBase{
         return adIdMap[ilanId].state == State.YAYINDA;
     }
 
+    function teklifFiyatRaicBedeldenDusukMu(uint ilanId, uint fiyat) public view returns(bool){
+        return adIdMap[ilanId].rayicBedeli <= fiyat;
+    }
+
     function getIlanSatici(uint ilanId) public view returns(address){
         return adIdMap[ilanId].satici;
     }
@@ -129,9 +136,13 @@ contract RealEstateSaleAd is NotaryContractBase{
         adIdMap[ilanId].aliciParaTransferi = true;
         Advertisement memory advertisement = adIdMap[ilanId];
         if(advertisement.saticiParaTransferi){
-            realEstateOwnerRelation.changeOwnerShip(advertisement.hisseId, advertisement.alici);
+            realEstateOwnerRelation.changeOwnerShip(advertisement.hisseId, advertisement.alici, advertisement.satici);
             adIdMap[ilanId].state = State.DEVIR_ISLEMI_TAMAMLANDI;
+            aliciIcinKitlenenIlanSayisi--;
             updateLUT(ilanId);
+            emit changedOwnerShip(advertisement.hisseId, advertisement.alici, advertisement.satici, advertisement.fiyat, block.timestamp);
+        }else{
+            emit alicisistemHesabinaParaAktardi(advertisement.alici, ilanId, advertisement.fiyat);
         }
     }
 
@@ -140,21 +151,25 @@ contract RealEstateSaleAd is NotaryContractBase{
         adIdMap[ilanId].saticiParaTransferi = true;
         Advertisement memory advertisement = adIdMap[ilanId];
         if(advertisement.aliciParaTransferi){
-            realEstateOwnerRelation.changeOwnerShip(advertisement.hisseId, advertisement.alici);
+            realEstateOwnerRelation.changeOwnerShip(advertisement.hisseId, advertisement.alici, advertisement.satici);
             adIdMap[ilanId].state = State.DEVIR_ISLEMI_TAMAMLANDI;
+            aliciIcinKitlenenIlanSayisi--;
             updateLUT(ilanId);
+            emit changedOwnerShip(advertisement.hisseId, advertisement.alici, advertisement.satici, advertisement.fiyat, block.timestamp);
+        }else{
+            emit saticiSistemHesabinaTapuHarciAktardi(advertisement.alici, ilanId, advertisement.fiyat);
         }
     }
 
     function getAliciIcinKitlenenIlanlar() public view returns(AdDto[] memory) {
         require(ownerContract.isAdmin(msg.sender), "Bu islemi sadece admin yapabilir");
-        AdDto [] memory result = new AdDto[]( adIdLUTLength);
+        AdDto [] memory result = new AdDto[]( aliciIcinKitlenenIlanSayisi);
         uint resultCount = 0;
         for(uint i; i< adIdLUTLength; i++){
-            uint ilanId =adIdLUT[i];
+            uint ilanId = adIdLUT[i];
             Advertisement memory ad =  adIdMap[ilanId]; 
             if(ad.state == State.ALICI_ICIN_KILITLENDI){
-                result[resultCount] =AdDto(ilanId, ad);
+                result[resultCount++] =AdDto(ilanId, ad);
             }
         }
         return result;

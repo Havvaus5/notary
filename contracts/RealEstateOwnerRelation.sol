@@ -9,15 +9,16 @@ contract RealEstateOwnerRelation is NotaryContractBase{
     Owner ownerContract;
     RealEstate realEstateContract;
 
-    mapping(address => uint []) public ownerHisseIdMap;
+    mapping(address => uint[]) public ownerHisseIdMap;
     
     mapping(uint => RealEstateHisse) public realEstateIdHisseMap;
     mapping(uint => Hisse) public hisseIdHisseMap;
+    uint[] hisseIdLUT;
 
-    event NewHisseAndRealEstateAdded(uint realEstateId, uint hisseId, address owner);
+    event NewHisseAndRealEstateAdded(uint realEstateId, uint hisseId, address owner, uint pay);
     event OwnerHissePayAdded(uint realEstateId, uint hisseId, address owner);
-    event NewHisseAddedToRealEstate(uint realEstateId, uint hisseId, address owner);
-    event OwnerShipChanged(uint hiseId, address oldOwner, address newOwner);
+    event NewHisseAddedToRealEstate(uint realEstateId, uint hisseId, address owner, uint pay);
+    event OwnerAddedToRealEstate(uint realEstateId, uint hisseId, address owner);
     
     constructor(address realEstateContractAdd, address ownerContractAdd)  {
         ownerContract=Owner(ownerContractAdd);
@@ -43,7 +44,8 @@ contract RealEstateOwnerRelation is NotaryContractBase{
             }else{
                 uint newHisseId=hisseOlustur(_hisse, realEstateId, ownAdd);
                 realEstateHisse.hisseIdList.push(newHisseId);
-                emit NewHisseAddedToRealEstate(realEstateId, newHisseId, ownAdd);
+                hisseIdLUT.push(newHisseId);
+                emit NewHisseAddedToRealEstate(realEstateId, newHisseId, ownAdd, _hisse);
             }
             realEstateHisse.toplamHisseMiktar += _hisse;
             realEstateIdHisseMap[realEstateId] = realEstateHisse;
@@ -54,9 +56,13 @@ contract RealEstateOwnerRelation is NotaryContractBase{
             realEstateHisse.registered =true;
             uint newHisseId=hisseOlustur(_hisse, realEstateId, ownAdd);
             realEstateHisse.hisseIdList.push(newHisseId);
-            emit NewHisseAndRealEstateAdded(realEstateId, newHisseId, ownAdd);
-        }
-        
+            hisseIdLUT.push(newHisseId);
+            if(payda > 1){
+                emit NewHisseAndRealEstateAdded(realEstateId, newHisseId, ownAdd, _hisse);
+            }else{
+                emit OwnerAddedToRealEstate(realEstateId, newHisseId, ownAdd);
+            }
+        }        
     }
 
     function hisseOlustur(uint _hisse, uint realEstateId, address ownAdd) private returns (uint) {
@@ -77,22 +83,20 @@ contract RealEstateOwnerRelation is NotaryContractBase{
         return 0;
     }
 
-    function changeOwnerShip(uint hisseId, address newOwner) public {
+    function changeOwnerShip(uint hisseId, address newOwner, address oldOwner) public {
         Hisse memory hisse  = hisseIdHisseMap[hisseId];
         require(hisse.registered, "Hisse bulunamadi");
         //require(ownerContract.isAdmin(msg.sender), "Bu islemi sadece admin yapabilir");
 
         hisseIdHisseMap[hisseId].ownerAdd = newOwner;
         
-        uint[] memory hisseIdList = ownerHisseIdMap[msg.sender];
-        for(uint i = 0; i<hisseIdList.length; i++){
+        uint[] storage hisseIdList = ownerHisseIdMap[oldOwner];
+        for(uint i = 0; i < hisseIdList.length; i++){
             if(hisseIdList[i] == hisseId){
-                ownerHisseIdMap[msg.sender][i] = 0;
+                hisseIdList[i] = 0;
             } 
         }
         ownerHisseIdMap[newOwner].push(hisseId);
-        
-        emit OwnerShipChanged(hisseId, msg.sender, newOwner);
     }
 
     function hisseSatisaCikabilirMi(uint hisseId, address ownAdd) public view returns(bool){
@@ -112,13 +116,27 @@ contract RealEstateOwnerRelation is NotaryContractBase{
         return hisseIdHisseMap[hisseId];
     }
 
-    function getHisseInfos(address ownAdd) public view returns (Hisse[] memory){
-           uint [] memory hisseIds = ownerHisseIdMap[ownAdd];
-           Hisse [] memory result = new Hisse[](hisseIds.length);
-           for(uint i = 0; i< hisseIds.length; i++){
-               result[i] = hisseIdHisseMap[hisseIds[i]];
-           }
-           return result;            
+    function getAllRealEstateAndHisse() public view returns(HisseView[] memory){
+        uint[] memory realEstateLUT = realEstateContract.getRealEstateLUT();
+        HisseView [] memory result = new HisseView[](hisseIdLUT.length + realEstateLUT.length);
+        uint index = 0;
+        for(uint i = 0; i< realEstateLUT.length; i++){
+            uint realEstateId = realEstateLUT[i];
+            RealEstateHisse memory realEstateHisse = realEstateIdHisseMap[realEstateId];
+            RealEstateData memory realEstateData = realEstateContract.getRealEstateInfo(realEstateId);
+            if(realEstateHisse.registered){
+                for (uint y = 0; y < realEstateHisse.hisseIdList.length; y++) {
+                    uint hisseId =  realEstateHisse.hisseIdList[y];
+                    result[index++] = HisseView(realEstateId, hisseId, hisseIdHisseMap[hisseId], realEstateData, realEstateHisse.toplamHisseMiktar);  
+                }
+                if(realEstateHisse.toplamHisseMiktar < realEstateHisse.payda){
+                    result[index++] = HisseView(realEstateId, 0, Hisse(0,0,address(0),false), realEstateData, 0);    
+                }                
+            }else{                
+                result[index++] = HisseView(realEstateId, 0, Hisse(0,0,address(0),false), realEstateData, 0);
+            }
+        }
+        return result;
     }
 
 }

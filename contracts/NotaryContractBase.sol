@@ -53,10 +53,15 @@ contract NotaryContractBase {
         ALICI_ONAYI_ILE_KILIT_KALDIRMA
     }
 
+    enum HisseEdinmeSebebi {
+        ILK_KAYIT,
+        SATIN_ALMA,
+        MIRAS
+    }
+
     struct Hisse {
         uint pay;  
-       //string edinmeSebebi; //TODO enum
-        //uint edinmeZamani;
+        //string edinmeSebebi; 
         uint realEstateId;
         address ownerAdd;
         bool registered;
@@ -66,18 +71,22 @@ contract NotaryContractBase {
         bool registered;
         uint payda;
         uint toplamHisseMiktar;
-        uint [] hisseIdList;        
+        uint [] hisseIdList;
     }
 
     struct RealEstateData {
         uint realEstateId;
-       // string il;
-        //string ilce;
+        string il;
+        string ilce;
         string mahalle;
-        //string tasinmazTip;
-        //string nitelik; //TODO enum
-        //string ada;
-        //string parsel;
+        string cadde;
+        string sokak;
+        uint kat;
+        string daireNo;
+        string tasinmazTip;
+        string nitelik; //TODO enum
+        string ada;
+        string parsel;
         uint payda;
         bool registered;
     }
@@ -88,6 +97,14 @@ contract NotaryContractBase {
         uint ilanId;
         Advertisement ad;
         RealEstateData realEstateData;
+    }
+
+    struct HisseView {
+        uint realEstateId;
+        uint hisseId;
+        Hisse hisse;  
+        RealEstateData realEstateData;
+        uint toplamEklenenHisseMiktar;
     }
 
     struct AdDto {

@@ -24,7 +24,8 @@ contract Proposition is NotaryContractBase {
     function teklifGonder(uint ilanId, uint fiyat) public {
         address satici = realEstateSaleAdContract.getIlanSatici(ilanId);
         require(satici != msg.sender, "Bu ilanin saticisi sizsniz teklif veremezsiniz");
-        require(realEstateSaleAdContract.ilanaTeklifVerilebilirMi(ilanId), "Bu ilana teklif verilemez");
+        require(realEstateSaleAdContract.ilanaTeklifVerilebilirMi(ilanId), "Bu ilana durumu yayinda degil, teklif verilemez");
+        require(realEstateSaleAdContract.teklifFiyatRaicBedeldenDusukMu(ilanId, fiyat),"Teklif verilen fiyat rayic bedelden dusuk olamaz");
         uint propId = block.timestamp;        
         address alici = msg.sender;
         propIdDataMap[propId] = PropositionData(propId, alici, satici, fiyat, ilanId, PropState.BEKLEMEDE);
@@ -50,8 +51,6 @@ contract Proposition is NotaryContractBase {
         propIdDataMap[propId].state = PropState.KABUL;
         denyOtherProps(prop.ilanId, propId);
         emit teklifKabulEdildi(propId);
-        
-
     }
 
     function denyOtherProps(uint ilanId, uint acceptedPropId) private {
