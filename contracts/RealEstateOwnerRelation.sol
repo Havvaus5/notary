@@ -25,8 +25,8 @@ contract RealEstateOwnerRelation is NotaryContractBase{
         realEstateContract=RealEstate(realEstateContractAdd);
     }
 
-    function testOwnerShip(uint realEstateId) public{
-        addOwnerShip(msg.sender, realEstateId, 1);        
+    function testOwnerShip(uint realEstateId, address ownAdd) public{
+        addOwnerShip(ownAdd, realEstateId, 3);        
     }
     
     function addOwnerShip(address ownAdd, uint realEstateId, uint _hisse) public {
@@ -114,6 +114,20 @@ contract RealEstateOwnerRelation is NotaryContractBase{
 
     function getHisse(uint hisseId) public view returns(Hisse memory){
         return hisseIdHisseMap[hisseId];
+    }
+
+    function getAllHissedarsByHisseId(uint queryHisseId) public view returns(Hisse[] memory){
+        Hisse memory hisse = hisseIdHisseMap[queryHisseId];
+        RealEstateHisse memory realEstateHisse = realEstateIdHisseMap[hisse.realEstateId];
+        Hisse [] memory result = new Hisse[](realEstateHisse.hisseIdList.length);
+        uint index = 0;
+        if(realEstateHisse.registered) {
+            for (uint y = 0; y < realEstateHisse.hisseIdList.length; y++) {
+                uint hisseId =  realEstateHisse.hisseIdList[y];
+                result[index++] =  hisseIdHisseMap[hisseId];
+            }         
+        }
+        return result;
     }
 
     function getAllRealEstateAndHisse() public view returns(HisseView[] memory){

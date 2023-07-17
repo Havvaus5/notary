@@ -5,14 +5,17 @@ import "./Owner.sol";
 import "./RealEstateOwnerRelation.sol";
 import "./NotaryContractBase.sol";
 import "./RealEstate.sol";
+import "./HissedarOnay.sol";
 
 contract RealEstateSaleAd is NotaryContractBase{
 
     RealEstateOwnerRelation realEstateOwnerRelation;
     Owner ownerContract;
     RealEstate realEstate;
+    HissedarOnay hissedarOnay;
 
     event ilanOlusturuldu(uint hisseId, address saticiId, uint ilanId, uint fiyat);
+    event hissedarlarinOnayinda(uint hisseId, address saticiId, uint ilanId, uint fiyat);
     event ilanYayindanKaldirildi(address saticiId, uint ilanId);
     event aliciIcinKilitlendi(uint ilanId, address saticiId, address aliciId);    
     event fiyatDegistirildi(uint ilanId, uint yeniSatisFiyat, address saticiId);
@@ -21,6 +24,8 @@ contract RealEstateSaleAd is NotaryContractBase{
     event alicisistemHesabinaParaAktardi(address alici, uint ilanId, uint miktar);
     event saticiSistemHesabinaTapuHarciAktardi(address satici, uint ilanId, uint miktar);
     event changedOwnerShip(uint hisseId, address alici, address satici, uint fiyat, uint zaman);
+    event mutabakatIslemiRed();
+    event mutabakatIslemiOnay();
 
     mapping (uint => Advertisement) public adIdMap;
     mapping (uint => uint) public hisseIdAdIdMap;
@@ -29,10 +34,11 @@ contract RealEstateSaleAd is NotaryContractBase{
     uint adIdLUTLength = 0;
     uint aliciIcinKitlenenIlanSayisi = 0;
     
-    constructor(address ownerContractAdd, address realOwnRelAddress, address realEstateAddress)  {
+    constructor(address ownerContractAdd, address realOwnRelAddress, address realEstateAddress, address hissedarOnayAdd)  {
         ownerContract=Owner(ownerContractAdd);
         realEstateOwnerRelation=RealEstateOwnerRelation(realOwnRelAddress);
         realEstate=RealEstate(realEstateAddress);
+        hissedarOnay = HissedarOnay(hissedarOnayAdd);
     }
 
     function ilanOlustur(uint hisseId, uint256 rayicBedeli, uint256 satisFiyat, bool borcuVarMi) public {
@@ -48,9 +54,22 @@ contract RealEstateSaleAd is NotaryContractBase{
         adIdLUT[adIdLUTLength] = ilanId;
         adIdLUTLength++;
         ownerAdIdListMap[msg.sender].push(ilanId);
-        emit ilanOlusturuldu(hisseId, msg.sender, ilanId, satisFiyat);
+        hissedarVarsaOnayaGonder(ilanId, hisseId, satisFiyat);        
     }
 
+    function hissedarVarsaOnayaGonder(uint ilanId, uint hisseId, uint256 satisFiyat) public {
+        
+        Hisse memory hisse = realEstateOwnerRelation.getHisse(hisseId);
+        RealEstateData memory realEstateData = realEstate.getRealEstateInfo(hisse.realEstateId);
+        if(realEstateData.payda != hisse.pay){
+            hissedarOnay.onayaGonder(ilanId, hisseId, satisFiyat, msg.sender, realEstateData.payda);
+            adIdMap[ilanId].state = State.HISSEDARLARDAN_ONAY_BEKLIYOR;
+            emit hissedarlarinOnayinda(hisseId, msg.sender, ilanId, satisFiyat);
+        }else{
+            emit ilanOlusturuldu(hisseId, msg.sender, ilanId, satisFiyat);
+        }        
+    }
+   
     function ilanYayindanKaldir(uint ilanId) public {
         require(adIdMap[ilanId].satici == msg.sender, "Bu islem sadece satici tarafindan yapilir");
         require(adIdMap[ilanId].state == State.YAYINDA, "Sadece yayinda olan ilanlar icin bu islem yapilabilir");
@@ -129,6 +148,23 @@ contract RealEstateSaleAd is NotaryContractBase{
 
     function getIlanSatici(uint ilanId) public view returns(address){
         return adIdMap[ilanId].satici;
+    }
+
+    function onayVer(uint onayId, uint ilanId) public {
+        hissedarOnay.onayVer(onayId, msg.sender);
+        ilanDurumuGuncelle(ilanId);
+        emit mutabakatIslemiOnay();
+    }
+
+    function reddet(uint onayId, uint ilanId) public {
+        hissedarOnay.reddet(onayId, msg.sender);
+        ilanDurumuGuncelle(ilanId);
+        emit mutabakatIslemiRed();
+    }
+
+    function ilanDurumuGuncelle(uint ilanId) public {
+        State ilanState = hissedarOnay.ilanYayinlanabilirmi(ilanId);
+        adIdMap[ilanId].state = ilanState;
     }
 
     function alicidanParaAlindi(uint ilanId) public {

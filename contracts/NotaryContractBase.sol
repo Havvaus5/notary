@@ -50,13 +50,22 @@ contract NotaryContractBase {
         ALICI_ICIN_KILITLENDI,
         YAYINDAN_KALDIRILDI,
         DEVIR_ISLEMI_TAMAMLANDI,
-        ALICI_ONAYI_ILE_KILIT_KALDIRMA
+        ALICI_ONAYI_ILE_KILIT_KALDIRMA,
+        HISSEDARLARDAN_ONAY_BEKLIYOR,
+        HISSEDARLAR_ARASINDA_MUTABAKAT_SAGLANAMADI        
     }
 
     enum HisseEdinmeSebebi {
         ILK_KAYIT,
         SATIN_ALMA,
         MIRAS
+    }
+
+    enum OnayDurum {
+        EMPTY,
+        KABUL,
+        RED,
+        BEKLEMEDE
     }
 
     struct Hisse {
@@ -97,6 +106,22 @@ contract NotaryContractBase {
         uint ilanId;
         Advertisement ad;
         RealEstateData realEstateData;
+    }
+
+    struct OnayData {
+        uint realEstateId;
+        uint256  fiyat; //todo double
+        uint hissePay;
+        uint hisseOran;
+        address onayci;
+        uint realEstateAdId;
+        OnayDurum onayDurum;
+    }
+
+    struct HisseOnayView {
+        uint onayID;
+        OnayData onayData;
+        RealEstateData realEstateData;        
     }
 
     struct HisseView {
